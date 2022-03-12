@@ -21,15 +21,16 @@ class Deck {
         this.shuffle();
     }
 
-    /*note to self: maybe unicode characters for suits will work
-    Clubs: U+2663
-    Diamonds: U+2662
-    Hearts: U+2661
-    Spades: U+2660
-    */
+    
     create() {
         this.cards = [];
-        const suits = ['C', 'D', 'H', 'S'];
+        /*
+        Clubs: U+2663
+        Diamonds: U+2662
+        Hearts: U+2661
+        Spades: U+2660
+        */
+        const suits = ['\u2663', '\u2662', '\u2661', '\u2660'];
         const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
         for (let j=0; j<4; j++){
@@ -111,5 +112,4 @@ function war(deck, player1, player2){
 let deck = new Deck;
 let player1 = new Player('John');
 let player2 = new Player('Nash');
-
 console.log(war(deck,player1,player2));
