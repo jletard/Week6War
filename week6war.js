@@ -31,7 +31,6 @@ class Deck {
         this.cards = [];
         const suits = ['C', 'D', 'H', 'S'];
         const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-        let power = 0;
 
         for (let j=0; j<4; j++){
             for (let i=0; i<13; i++){
@@ -67,7 +66,7 @@ class Player {
     }
 }
 
-function dealCards(deck, player1, player2){
+function dealCards(deck, player1, player2){     //deals 26 Cards to two players from a deck
     
     while (deck.cards.length > 0) {
         player1.hand.push(deck.deal());
@@ -75,8 +74,36 @@ function dealCards(deck, player1, player2){
     }
 }
 
-function war(player1, player2){
-    let 
+function war(deck, player1, player2){
+    dealCards(deck, player1, player2);
+    let p1Card, p2Card;
+    
+    while (player1.hand.length > 0){
+        p1Card = player1.hand.pop();
+        p2Card = player2.hand.pop();
+        if (p1Card.power > p2Card.power) {
+            player1.points ++;
+            console.log(`${player1.name} plays ${p1Card.displayCard()} beating ${player2.name}'s  ${p2Card.displayCard()} `)
+        }
+        else if (p2Card.power > p1Card.power) {
+            player2.points ++;
+            console.log(`${player2.name} plays ${p2Card.displayCard()} beating ${player1.name}'s  ${p1Card.displayCard()} `)
+        }
+        else {
+            console.log(`${player1.name} plays ${p1Card.displayCard()} drawing ${player2.name}'s  ${p2Card.displayCard()} `)
+        }
+    
+    }
+    
+    if (player1.points > player2.points) {
+        return `${player1.name} has defeated ${player2.name} in a serious game of war ${player1.points}-${player2.points}`;
+    }
+    else if (player2.points > player1.points) {
+        return `${player2.name} has defeated ${player1.name} in a serious game of war ${player2.points}-${player1.points}`;
+    } 
+    else {
+        return `The War between ${player1.name} and ${player2.name} has ended in a stalemate`;
+    }
 }
 
 
@@ -85,6 +112,4 @@ let deck = new Deck;
 let player1 = new Player('John');
 let player2 = new Player('Nash');
 
-dealCards(deck, player1, player2);
-console.log(`${player1.name} has ${player1.hand.length} cards`);
-console.log(`${player2.name} has ${player2.hand.length} cards`);
+console.log(war(deck,player1,player2));
