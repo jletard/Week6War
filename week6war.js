@@ -49,6 +49,7 @@ class Deck {
             [this.cards[j], this.cards[i]] = [this.cards[i], this.cards[j]];
 
         }
+        console.log('Shuffling');
         return this;
 
     }
@@ -68,14 +69,21 @@ class Player {
 }
 
 function dealCards(deck, player1, player2){     //deals 26 Cards to two players from a deck
-    
-    while (deck.cards.length > 0) {
-        player1.hand.push(deck.deal());
-        player2.hand.push(deck.deal());
+    if ((deck instanceof Deck) && (player1 instanceof Player) && (player2 instanceof Player)){
+        while (deck.cards.length > 0) {
+            player1.hand.push(deck.deal());
+            player2.hand.push(deck.deal());
+        }
+        console.log('dealing');
+    }
+    else {
+        throw new Error('You need a Deck and Two Players');
     }
 }
 
 function war(deck, player1, player2){
+    
+    
     dealCards(deck, player1, player2);
     let p1Card, p2Card;
     
